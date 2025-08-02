@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('Only on tag') {
+    stage('Deploy') {
       when { buildingTag() }
-      steps { echo "Deploying tag ${env.TAG_NAME}" }
+      steps {
+        sh "echo Deploying tag ${env.TAG_NAME} to production"
+      }
     }
   }
 }
