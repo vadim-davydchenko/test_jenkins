@@ -1,10 +1,10 @@
 pipeline {
   agent any
+  triggers { skipDefaultCheckout() }
   stages {
-    stage('Build') {
-      steps {
-        echo 'Build from MAIN branch'
-      }
+    stage('Only on tag') {
+      when { buildingTag() }
+      steps { echo "Deploying tag ${env.TAG_NAME}" }
     }
   }
 }
