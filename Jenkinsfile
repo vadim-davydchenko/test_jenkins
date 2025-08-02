@@ -1,18 +1,11 @@
 pipeline {
-    agent any
-    triggers {
-        GenericTrigger(
-            regexpFilterText: '$ref',
-            regexpFilterExpression: '^refs/tags/.*$',
-            causeString: 'Tag push: $ref'
-        )
+  agent any
+  stages {
+    stage('Deploy') {
+      when { buildingTag() }
+      steps {
+        sh "echo Deploying tag ${env.TAG_NAME} to production"
+      }
     }
-
-    stages {
-        stage('Deploy tag') {
-            steps {
-                sh 'echo Deploying ${ref} to production'
-            }
-        }
-    }
+  }
 }
