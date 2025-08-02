@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  triggers { skipDefaultCheckout() }
   stages {
     stage('Only on tag') {
       when { buildingTag() }
